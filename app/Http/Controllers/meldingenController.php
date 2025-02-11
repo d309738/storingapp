@@ -2,18 +2,47 @@
 
 //Variabelen vullen
 $attractie = $_POST['attractie'];
-$capaciteit = $_POST['capaciteit'];
+if(empty($attractie))
+{
+    $errors[] = "Vul de attractie-naam in.";
+}
 $type = $_POST['type'];
+if(empty($type))
+{
+    $errors[] = "Kies een type.";
+}
+$capaciteit = $_POST['capaciteit'];
+if(!is_numeric($capaciteit))
+{
+    $errors[] = "Vul voor capaciteit een geldig getal in.";
+}
+if(isset($_POST['prioriteit']))
+{
+    $prioriteit = 1;
+}
+else
+{
+    $prioriteit = 0;
+}
 $melder = $_POST['melder'];
+if(empty($melder))
+{
+    $errors[] = "Vul je naam in.";
+}
+$overig = $_POST['overig'];
+if(isset($errors))
+{
+    var_dump($errors);
+    die();
+}
 
-echo $attractie . " / " . $capaciteit . " / " . $melder . " / " . $type;
 
 //1. Verbinding
 require_once '../../../config/conn.php';
 
 //2. Query
-$query = "INSERT INTO meldingen (attractie, capaciteit, melder, type)
-VALUES(:attractie, :capaciteit, :melder, :type)";
+$query = "INSERT INTO meldingen (attractie, type, capaciteit, prioriteit, melder, overige_info)
+VALUES (:attractie, :type, :capaciteit, :prioriteit, :melder, :overige_info)";
 
 //3. Prepare
 $statement = $conn->prepare($query);
@@ -21,10 +50,13 @@ $statement = $conn->prepare($query);
 //4. Execute
 $statement->execute([
     ":attractie" => $attractie,
-    ":capaciteit" => $capaciteit,
+    ":type" => $type,
+    ":capaciteit" => $capaciteit, 
+    ":prioriteit" => $prioriteit, 
     ":melder" => $melder,
-    ":type" => $type
+    ":overige_info" => $overig,
 ]);
 
-$items = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+header("Location:../../../resources/views/meldingen/index.php?msg=Meldingopgeslagen");
    
