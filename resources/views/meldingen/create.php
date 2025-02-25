@@ -21,7 +21,7 @@
                 <input type="text" name="attractie" id="attractie" class="form-input">
             </div>
             <div class="form-group">
-                <label for="type">Type</label>
+                <label for="type">Type:</label>
                 <select name="type" id="type">
                     <option value="">-- kies een type --</option>
                     <option value="achtbaan">achtbaan</option>
