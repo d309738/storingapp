@@ -43,8 +43,8 @@
         $melding = $statement->fetch(PDO::FETCH_ASSOC);
         ?>
 
-        <form action="........." method="POST">
-            <!-- (voeg hier opdracht 7 toe) -->
+        <form action="/app/Http/Controllers/meldingenController.php" method="POST">
+        <input type="hidden" name="id" value="update" id="<?php $id ?>">
 
             <div class="form-group">
                 <label>Naam attractie:</label>
@@ -52,17 +52,7 @@
             </div>
             <div class="form-group">
                 <label for="type">Type:</label>
-                <select name="type" id="type">
-                    <option value="<?php echo $melding['type']; ?>"><?php echo $melding['type']; ?></option>
-                    <option value="">-- kies een type --</option>
-                    <option value="achtbaan">achtbaan</option>
-                    <option value="draaiend">draaiend</option>
-                    <option value="kinder">kinder</option>
-                    <option value="horeca">horeca</option>
-                    <option value="show">show</option>
-                    <option value="water">water</option>
-                    <option value="overig">overig</option>
-                    </select>
+                <?php echo $melding['type']; ?>
             </div>
             <div class="form-group">
                 <label for="capaciteit">Capaciteit p/uur:</label>
@@ -72,17 +62,17 @@
             <div class="form-group">
                 <label for="prioriteit">Prio:</label>
                 <!-- Let op: de checkbox blijft nu altijd uit, pas dit nog aan -->
-                <input type="checkbox" name="prioriteit" id="prioriteit">
+                <input type="checkbox" name="prioriteit" id="prioriteit" <?php if ($melding['prioriteit']) echo 'checked'; ?>>
                 <label for="prioriteit">Melding met prioriteit</label>
             </div>
             <div class="form-group"> 
                 <label for="melder">Naam melder:</label>
                 <!-- Voeg hieronder nog een value-attribuut toe, zoals bij capaciteit -->
-                <input type="text" name="melder" id="melder" class="form-input">
+                <input type="text" name="melder" id="melder" class="form-input" value="<?php echo $melding['melder']; ?>">
             </div>
             <div class="form-group">
                 <label for="overig">Overige info:</label>
-                <textarea name="overig" id="overig" class="form-input" rows="4">.....</textarea>
+                <textarea name="overig" id="overig" class="form-input" rows="4"><?php echo $melding['overige_info']?></textarea>
             </div>
             
             <input type="submit" value="Melding opslaan">
