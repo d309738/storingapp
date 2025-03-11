@@ -58,12 +58,12 @@ if ($action == "create")
         ":prioriteit" => $prioriteit, 
         ":melder" => $melder,
         ":overige_info" => $overig,
-    ]);
+    ]); 
 
 
     header("Location:../../../resources/views/meldingen/index.php?msg=Meldingopgeslagen");
 }
-if ($action == "uodate")
+if ($action == "update")
 {
     $id = $_POST['id'];
     $capaciteit = $_POST['capaciteit'];
@@ -93,10 +93,21 @@ if ($action == "uodate")
         ":id" => $id
     ]);
     
-    header("Location:../../../resources/views/meldingen/index.php?msg=Meldingbewerkt");
+    header("Location:../../../resources/views/meldingen/index.php?msg=MeldingBewerkt");
 }
 if ($action == "delete")
 {
+    $id = $_POST['id'];
     
+    require_once '../../../config/conn.php';
+
+    $query = "DELETE FROM meldingen WHERE id = :id";
+    $statement = $conn->prepare($query);
+    $statement->execute([
+        ":id" => $id
+    ]);
+
+    header("Location:../../../resources/views/meldingen/index.php?msg=MeldingVerwijderd ");
+
 }
    

@@ -7,16 +7,15 @@
 </head>
 
 <body>
-    <?php 
+    <?php
 
-    if(!isset($_GET['id'])){
+    if (!isset($_GET['id'])) {
         echo "Geef in je aanpaslink op de index.php het id van betreffende item mee achter de URL in je a-element om deze pagina werkend te krijgen na invoer van je vijfstappenplan";
         exit;
-
     }
     ?>
     <?php
-        require_once '../components/head.php'; ?>
+    require_once '../components/head.php'; ?>
 
     <div class="container">
         <h1>Melding aanpassen</h1>
@@ -44,7 +43,7 @@
         ?>
 
         <form action="/app/Http/Controllers/meldingenController.php" method="POST">
-        <input type="hidden" name="id" value="update" id="<?php $id ?>">
+            <input type="hidden" name="action" value="update" id="<?php $id ?>">
 
             <div class="form-group">
                 <label>Naam attractie:</label>
@@ -65,20 +64,26 @@
                 <input type="checkbox" name="prioriteit" id="prioriteit" <?php if ($melding['prioriteit']) echo 'checked'; ?>>
                 <label for="prioriteit">Melding met prioriteit</label>
             </div>
-            <div class="form-group"> 
+            <div class="form-group">
                 <label for="melder">Naam melder:</label>
                 <!-- Voeg hieronder nog een value-attribuut toe, zoals bij capaciteit -->
                 <input type="text" name="melder" id="melder" class="form-input" value="<?php echo $melding['melder']; ?>">
             </div>
             <div class="form-group">
                 <label for="overig">Overige info:</label>
-                <textarea name="overig" id="overig" class="form-input" rows="4"><?php echo $melding['overige_info']?></textarea>
+                <textarea name="overig" id="overig" class="form-input" rows="4"><?php echo $melding['overige_info'] ?></textarea>
             </div>
-            
+
             <input type="submit" value="Melding opslaan">
 
         </form>
-    </div>  
+        <hr>
+        <form action="/app/Http/Controllers/meldingenController.php" method="POST">
+            <input type="hidden" name="action" value="delete">
+            <input type="hidden" name="id" value="<?php echo $id; ?>">
+            <input type="submit" value="Verwijderen">
+        </form>
+    </div>
 
 </body>
 
