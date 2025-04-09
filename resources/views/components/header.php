@@ -1,4 +1,4 @@
-<?php require_once __DIR__.'/../../../config/config.php'; ?>
+<?php require_once __DIR__ . '/../../../config/config.php'; ?>
 
 <header>
     <div class="container">
@@ -8,7 +8,13 @@
             <a href="<?php echo $base_url; ?>/resources/views/meldingen/index.php">Meldingen</a>
         </nav>
         <div>
-            <a href="<?php echo $base_url; ?>/login.php">Inloggen</a>
+            <?php if (isset($_SESSION['user_id'])): ?>
+                <p><a href="<?php echo $base_url; ?>/logout.php">Uitloggen</a></p>
+            <?php else: ?>
+                <span><a href="<?php echo $base_url; ?>/login.php">Inloggen</a></span>
+                <span>|</span>
+                <span><a href="<?php echo $base_url; ?>/register.php">Registreren</a></span>
+            <?php endif; ?>
         </div>
     </div>
 </header>
